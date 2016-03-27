@@ -70,6 +70,11 @@ if [ ! -e ../VERSION ]; then
     echo "$(git describe --tags)" > ../VERSION
 fi
 
+for PATCH in ../../../../patches/golang/all/*.patch; do
+    echo "Applying $PATCH"
+    git apply $PATCH
+done
+
 ./make.bash --no-banner
 cp -a ../bin "${GOROOT_FINAL}"/
 cp -a ../pkg "${GOROOT_FINAL}"/
